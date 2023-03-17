@@ -1,0 +1,88 @@
+﻿<UserControl x:Class="WpfApp2.Views.UploadView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WpfApp2.Views"
+             xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <TextBlock FontSize="30"
+                   FontWeight="SemiBold"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Text="View Upload"/>
+
+        <Separator VerticalAlignment="Center"/>
+
+        <Grid
+            Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            
+            <!--Drag and Drop Files-->
+            <StackPanel VerticalAlignment="Center">
+                <!--To accept droppinng files-->
+                <Rectangle
+                    AllowDrop="True"
+                    Fill="WhiteSmoke"
+                    RadiusX="10"
+                    RadiusY="10"
+                    StrokeDashArray="10"
+                    StrokeThickness="2"
+                    StrokeDashCap="Round"
+                    Stroke="Silver"
+                    Height="200"
+                    Width="200">
+                </Rectangle>
+                <!--Logo and Text-->
+                <StackPanel
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+                    <fa:IconImage Icon="Upload" Height="60" Width="60"/>
+
+                </StackPanel>
+                
+                <Button
+                    Background="#FF80CD24"
+                    BorderThickness="0"
+                    Content="Choose File"
+                    Foreground="White"
+                    FontSize="20"
+                    Height="50"
+                    Width="150"
+                    Margin="0,20,0,0">
+                    <Button.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="10"></Setter>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+            </StackPanel>
+            
+            <!--Upload files list-->
+            <ScrollViewer Grid.Column="1"
+                          Margin="0,15"
+                          HorizontalScrollBarVisibility="Disabled"
+                          VerticalScrollBarVisibility="Hidden">
+                <Grid>
+                    <ItemsControl>
+                        <TextBlock
+                            Text="Uploading files,"
+                            FontSize="20"
+                            FontWeight="SemiBold"/>
+                    </ItemsControl>
+                </Grid>
+            </ScrollViewer>
+        </Grid>
+
+    </Grid>
+</UserControl>
