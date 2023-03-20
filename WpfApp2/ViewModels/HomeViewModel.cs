@@ -6,6 +6,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WpfApp2.Models;
+using System.Windows.Forms;
+using FontAwesome.Sharp;
+using System.Windows.Input;
+using WpfApp2.Repositories;
+using System.Threading;
+using System.IO;
 
 namespace WpfApp2.ViewModels
 {
@@ -13,8 +19,10 @@ namespace WpfApp2.ViewModels
     {
         public List<VideosModel> videos { get; set; }
 
+
         public HomeViewModel()
         {
+
             // Retrieve data from SQL database and populate MyDataList
             string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Database1.mdf;Integrated Security=True";
             SqlConnection connection = new SqlConnection(connectionString);

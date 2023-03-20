@@ -25,9 +25,11 @@
             <local:CustomerView/>
         </DataTemplate>
 
-        <DataTemplate DataType="{x:Type viewModel:SettingsViewModel}">
-            <local:SettingsView/>
+        <DataTemplate DataType="{x:Type viewModel:UserProfileViewModel}">
+            <local:UserProfile/>
         </DataTemplate>
+
+
     </Window.Resources>
 
     <Border CornerRadius="10"
@@ -116,7 +118,7 @@
                     </RadioButton>
 
                     <RadioButton Style="{StaticResource menuButton}" Tag="{StaticResource color5}"
-                                 Command="{Binding ShowSettingsViewCommand}">
+                                 Command="{Binding ShowUserProfileViewCommand}">
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="Gears" Style="{StaticResource menuButtonIcon}"/>
                             <TextBlock Text="Settings" Style="{StaticResource menuButtonText}"/>
@@ -207,7 +209,8 @@
                                 </Ellipse.Fill>
                             </Ellipse>
                             <Button Style="{StaticResource iconButton}"
-                                    Tag="{StaticResource color3}">
+                                    Tag="{StaticResource color3}"
+                                    Command="{Binding ShowCustomerViewCommand}">
                                 <fa:IconImage Icon="Home" Style="{StaticResource iconButtonIcon}"/>
                             </Button>
                             <Button Style="{StaticResource iconButton}"

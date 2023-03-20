@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using WpfApp2.Models;
 using WpfApp2.Repositories;
+using System.IO;
+using System.Data.SqlClient;
+using System.Data;
 
 namespace WpfApp2.ViewModels
 {
@@ -20,6 +23,7 @@ namespace WpfApp2.ViewModels
         private string _caption;
         private IconChar _icon;
         private IUserRepository userRepository;
+
 
         public UserAccountModel CurrentUserAccount
         {
@@ -57,6 +61,7 @@ namespace WpfApp2.ViewModels
         public ICommand ShowHomeViewCommand { get;  }
         public ICommand ShowCustomerViewCommand { get;  }
         public ICommand ShowSettingsViewCommand { get;  }
+        public ICommand ShowUserProfileViewCommand { get;  }
 
         public MainViewModel()
         {
@@ -67,12 +72,16 @@ namespace WpfApp2.ViewModels
             ShowHomeViewCommand = new ViewModelCommand(ExecuteShowHomeViewCommand);
             ShowCustomerViewCommand = new ViewModelCommand(ExecuteCustomerViewCommand);
             ShowSettingsViewCommand = new ViewModelCommand(ExecuteShowSettingsViewCommand);
+            ShowUserProfileViewCommand = new ViewModelCommand(ExecuteUserProfileViewCommand);
 
             //Default View
             ExecuteShowHomeViewCommand(null);
 
             LoadCurrentUserData();
         }
+
+
+       
 
         private void ExecuteCustomerViewCommand(object obj)
         {
@@ -95,6 +104,13 @@ namespace WpfApp2.ViewModels
             Icon = IconChar.Gears;
         }
 
+        private void ExecuteUserProfileViewCommand(object obj)
+        {
+            CurrentChildView = new UserProfileViewModel();
+            Caption = "User Profile";
+            Icon = IconChar.Users;
+        }
+
         private void LoadCurrentUserData()
         {
             var user = userRepository.GetByUsername(Thread.CurrentPrincipal.Identity.Name);
@@ -102,7 +118,12 @@ namespace WpfApp2.ViewModels
             {
                 CurrentUserAccount.Username = user.Username;
                 CurrentUserAccount.DisplayName = $"{user.Name} {user.LastName}";
-                CurrentUserAccount.ProfilePicture = user.ProfilePicture;
+                CurrentUserAccount.Email = user.Email;
+                CurrentUserAccount.ID = user.Id;
+
+                string imagePath = "C:/Users/raisa/source/repos/WpfApp2/WpfApp2/Images/user-icon.png";
+                CurrentUserAccount.ProfilePicture = (CurrentUserAccount.ProfilePicture == null) ?
+                    File.ReadAllBytes(imagePath) : user.ProfilePicture;
             }
             else
             {

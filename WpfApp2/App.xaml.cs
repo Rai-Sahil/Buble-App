@@ -27,6 +27,8 @@ namespace WpfApp2
                     loginView.Close();
                 }
             };
+
+            
         }
     }
 }

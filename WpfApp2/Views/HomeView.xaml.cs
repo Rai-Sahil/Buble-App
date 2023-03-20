@@ -18,6 +18,7 @@ using WpfApp2.Repositories;
 using System.ComponentModel;
 using System.Data.SqlClient;
 using WpfApp2.ViewModels;
+using System.Runtime.Remoting.Messaging;
 
 namespace WpfApp2.Views
 {
@@ -31,6 +32,8 @@ namespace WpfApp2.Views
             InitializeComponent();
 
             DataContext = new HomeViewModel();
+            frame.NavigationService.Navigate(new Page1());
         }
+
     }
 }
