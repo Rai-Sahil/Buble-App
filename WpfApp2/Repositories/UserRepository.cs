@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -6,7 +7,9 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using WpfApp2.CustomControls;
 using WpfApp2.Models;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace WpfApp2.Repositories
 {
@@ -39,9 +42,31 @@ namespace WpfApp2.Repositories
             throw new NotImplementedException();
         }
 
-        public IEnumerable<UserModel> GetByAll()
+        public List<UserRow> GetByAll()
         {
-            throw new NotImplementedException();
+            List<UserRow> users = new List<UserRow>();
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "select * from [User]";
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        UserRow user = new UserRow();
+
+                        user.Title = reader[0].ToString();
+                        user.Description = reader[1].ToString();
+
+                        users.Add(user);
+                        
+                    }
+                }
+            }
+
+            return users;
         }
 
         public UserModel GetById(int id)

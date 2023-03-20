@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using WpfApp2.CustomControls;
 
 namespace WpfApp2.Models
 {
@@ -15,7 +16,7 @@ namespace WpfApp2.Models
         void Remove(int id);
         UserModel GetById(int id);
         UserModel GetByUsername(string username);
-        IEnumerable<UserModel> GetByAll();
+        List<UserRow> GetByAll();
 
     }
 }

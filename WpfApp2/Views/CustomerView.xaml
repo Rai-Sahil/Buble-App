@@ -92,7 +92,10 @@
                     <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Number"/>
                     <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Address"/>
                 </DataGrid.Columns>
+               
             </DataGrid>
+
+
         </Border>
     </Grid>
 </UserControl>

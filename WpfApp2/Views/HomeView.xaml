@@ -3,18 +3,47 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
              xmlns:local="clr-namespace:WpfApp2.Views"
+             xmlns:model="clr-namespace:WpfApp2.Models"
              xmlns:customcontrols="clr-namespace:WpfApp2.CustomControls"
              mc:Ignorable="d" 
+             
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
+        <ItemsControl ItemsSource="{Binding videos}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
 
-        <ScrollViewer>
-            <customcontrols:VideoDescriptionOnHomePage
-                 Margin="40, 40,0,0" Height="140" Width="187"
-                VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                <!-- DataTemplate goes here -->
+                <DataTemplate>
+                    <Grid Margin="10" Width="250" Height="180" VerticalAlignment="Top"
+              HorizontalAlignment="Left">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
 
-        </ScrollViewer>
-        
+                        <Image Source="{Binding Thumbnail}" Stretch="UniformToFill" />
+
+                        <Grid Grid.Row="1" Margin="8">
+                            <TextBlock Text="{Binding title}" FontSize="14" FontWeight="Bold" TextWrapping="Wrap" Margin="0 0 0 5" Foreground="White"/>
+                            <TextBlock Text="{Binding channel}" FontSize="14" Foreground="Gray" Margin="0 0 0 5" HorizontalAlignment="Right"/>
+                            <!--<StackPanel Orientation="Horizontal">
+
+                                --><!--<fa:IconImage Icon="ThumbsUp"  Width="20" Height="20" Margin="0 0 5 0" />
+                                <TextBlock Text="{Binding likes}" Foreground="Gray" Margin="0 0 10 0" />
+                                <fa:IconImage Icon="ThumbsDown"  Width="20" Height="20" Margin="0 0 5 0" />
+                                <TextBlock Text="{Binding dislikes}" Foreground="Gray" />--><!--
+                            </StackPanel>-->
+                        </Grid>
+                    </Grid>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
     </Grid>
 </UserControl>

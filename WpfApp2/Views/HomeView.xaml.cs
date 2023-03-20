@@ -12,6 +12,12 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+using WpfApp2.CustomControls;
+using WpfApp2.Repositories;
+using System.ComponentModel;
+using System.Data.SqlClient;
+using WpfApp2.ViewModels;
 
 namespace WpfApp2.Views
 {
@@ -23,6 +29,8 @@ namespace WpfApp2.Views
         public HomeView()
         {
             InitializeComponent();
+
+            DataContext = new HomeViewModel();
         }
     }
 }

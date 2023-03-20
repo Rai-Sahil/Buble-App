@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +14,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfApp2.CustomControls;
+using WpfApp2.Repositories;
 
 namespace WpfApp2.Views
 {
@@ -23,6 +27,15 @@ namespace WpfApp2.Views
         public CustomerView()
         {
             InitializeComponent();
+
+            UserRepository repo = new UserRepository();
+
+            List<UserRow> rows = repo.GetByAll();
+
+            for (int i = 0; i < rows.Count; i++)
+            {
+                
+            }
         }
     }
 }

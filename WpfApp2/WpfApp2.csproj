@@ -83,10 +83,11 @@
     <Compile Include="CustomControls\FileDetails.xaml.cs">
       <DependentUpon>FileDetails.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CustomControls\VideoDescriptionOnHomePage.xaml.cs">
-      <DependentUpon>VideoDescriptionOnHomePage.xaml</DependentUpon>
+    <Compile Include="CustomControls\UserRow.xaml.cs">
+      <DependentUpon>UserRow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\IUserRepository.cs" />
+    <Compile Include="Models\VideosModel.cs" />
     <Compile Include="Repositories\RepositoryBase.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="ViewModels\CustomerViewModel.cs" />
@@ -99,9 +100,6 @@
     <Compile Include="Views\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\UploadView.xaml.cs">
-      <DependentUpon>UploadView.xaml</DependentUpon>
-    </Compile>
     <Page Include="CustomControls\BindablePasswordBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -110,7 +108,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="CustomControls\VideoDescriptionOnHomePage.xaml">
+    <Page Include="CustomControls\UserRow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -160,10 +158,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\SettingsView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\UploadView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

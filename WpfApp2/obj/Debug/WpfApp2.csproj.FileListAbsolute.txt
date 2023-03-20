@@ -36,8 +36,6 @@ C:\Users\raisa\source\repos\WpfApp2\WpfApp2\obj\Debug\Views\HomeView.baml
 C:\Users\raisa\source\repos\WpfApp2\WpfApp2\obj\Debug\Views\SettingsView.g.cs
 C:\Users\raisa\source\repos\WpfApp2\WpfApp2\obj\Debug\Views\SettingsView.baml
 C:\Users\raisa\source\repos\WpfApp2\WpfApp2\obj\Debug\CustomControls\FileDetails.g.cs
-C:\Users\raisa\source\repos\WpfApp2\WpfApp2\obj\Debug\Views\UploadView.g.cs
 C:\Users\raisa\source\repos\WpfApp2\WpfApp2\obj\Debug\CustomControls\FileDetails.baml
-C:\Users\raisa\source\repos\WpfApp2\WpfApp2\obj\Debug\Views\UploadView.baml
-C:\Users\raisa\source\repos\WpfApp2\WpfApp2\obj\Debug\CustomControls\VideoDescriptionOnHomePage.g.cs
-C:\Users\raisa\source\repos\WpfApp2\WpfApp2\obj\Debug\CustomControls\VideoDescriptionOnHomePage.baml
+C:\Users\raisa\source\repos\WpfApp2\WpfApp2\obj\Debug\CustomControls\UserRow.g.cs
+C:\Users\raisa\source\repos\WpfApp2\WpfApp2\obj\Debug\CustomControls\UserRow.baml
