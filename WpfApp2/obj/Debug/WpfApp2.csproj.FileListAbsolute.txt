@@ -41,7 +41,9 @@ C:\Users\raisa\source\repos\WpfApp2\WpfApp2\obj\Debug\CustomControls\UserRow.g.c
 C:\Users\raisa\source\repos\WpfApp2\WpfApp2\obj\Debug\CustomControls\UserRow.baml
 C:\Users\raisa\source\repos\WpfApp2\WpfApp2\obj\Debug\Views\UserProfile.g.cs
 C:\Users\raisa\source\repos\WpfApp2\WpfApp2\obj\Debug\Views\UserProfile.baml
-C:\Users\raisa\source\repos\WpfApp2\WpfApp2\obj\Debug\Views\Page1.g.cs
-C:\Users\raisa\source\repos\WpfApp2\WpfApp2\obj\Debug\Views\Page2.g.cs
-C:\Users\raisa\source\repos\WpfApp2\WpfApp2\obj\Debug\Views\Page1.baml
-C:\Users\raisa\source\repos\WpfApp2\WpfApp2\obj\Debug\Views\Page2.baml
+C:\Users\raisa\source\repos\WpfApp2\WpfApp2\obj\Debug\Views\VideoPlayer.g.cs
+C:\Users\raisa\source\repos\WpfApp2\WpfApp2\obj\Debug\Views\AllVideosPage.g.cs
+C:\Users\raisa\source\repos\WpfApp2\WpfApp2\obj\Debug\Views\AllVideosPage.baml
+C:\Users\raisa\source\repos\WpfApp2\WpfApp2\obj\Debug\Views\VideoPlayer.baml
+C:\Users\raisa\source\repos\WpfApp2\WpfApp2\obj\Debug\Views\RecoverPasswordView.g.cs
+C:\Users\raisa\source\repos\WpfApp2\WpfApp2\obj\Debug\Views\RecoverPasswordView.baml

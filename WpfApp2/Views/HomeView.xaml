@@ -12,7 +12,7 @@
              d:DesignHeight="450" d:DesignWidth="800">
 
     <Grid>
-        <Frame x:Name="frame"  Content="Frame" NavigationUIVisibility="Hidden"/>
+        <Frame x:Name="frame" NavigationUIVisibility="Hidden"/>
 
     </Grid>
 </UserControl>

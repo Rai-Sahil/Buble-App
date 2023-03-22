@@ -23,5 +23,14 @@ namespace WpfApp2.Views
         {
             InitializeComponent();
         }
+
+        private void Reset_Password_Clicked(object sender, EventArgs e)
+        {
+            RecoverPasswordView recoverPasswordWindow = new RecoverPasswordView();
+            recoverPasswordWindow.Show();
+            Window window = this as Window;
+            window.Close();
+            
+        }
     }
 }
