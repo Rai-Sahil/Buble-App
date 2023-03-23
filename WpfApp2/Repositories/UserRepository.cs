@@ -28,11 +28,16 @@ namespace WpfApp2.Repositories
             using (var command = new SqlCommand())
             {
                 connection.Open();
+                Console.WriteLine("Database name: " + connection.Database);
                 command.Connection = connection;
                 command.CommandText = "select * from [User] where username=@username and password=@password";
                 command.Parameters.Add("@username", SqlDbType.NVarChar).Value = credential.UserName;
                 command.Parameters.Add("@password", SqlDbType.NVarChar).Value = credential.Password;
                 validUser = command.ExecuteScalar() == null ? false : true;
+
+                connection.Close();
+                connection.Dispose();
+                command.Dispose();
             }
             return validUser;
         }
@@ -64,6 +69,10 @@ namespace WpfApp2.Repositories
                         
                     }
                 }
+
+                connection.Close();
+                connection.Dispose();
+                command.Dispose();
             }
 
             return users;
@@ -99,6 +108,10 @@ namespace WpfApp2.Repositories
                         };
                     }
                 }
+
+                connection.Close();
+                connection.Dispose();
+                command.Dispose ();
             }
             return user;
         }
@@ -106,6 +119,53 @@ namespace WpfApp2.Repositories
         public void Remove(int id)
         {
             throw new NotImplementedException();
+        }
+
+        public void ChangeUserPassword(string username, string Password)
+        {
+            string updateQuery = "UPDATE [User] SET Password = @Password WHERE Username = @Username";
+
+            using (SqlConnection connection = GetConnection())
+            {
+                connection.Open();
+
+                SqlTransaction transaction = connection.BeginTransaction();
+
+                try
+                {
+                    using (SqlCommand command = new SqlCommand(updateQuery, connection, transaction))
+                    {
+                        command.Parameters.AddWithValue("@Password", SqlDbType.NVarChar).Value = Password;
+                        command.Parameters.AddWithValue("@Username", SqlDbType.NVarChar).Value = username;
+
+                        int rowsAffected = command.ExecuteNonQuery();
+
+                        if (rowsAffected == 0)
+                        {
+                            transaction.Rollback();
+                            Console.WriteLine("User not found");
+                        }
+                        else
+                        {
+                            // Commit transaction if rows were affected
+                            transaction.Commit();
+                            Console.WriteLine("Password updated successfully.");
+                        }
+                        command.Dispose();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Roll back transaction on exception
+                    transaction.Rollback();
+                    Console.WriteLine("Error updating password: " + ex.Message);
+                }
+
+                connection.Close();
+                connection.Dispose();
+
+            }
+
         }
     }
 }

@@ -25,7 +25,7 @@
 
     <Border CornerRadius="12">
         <Border.Background>
-            <ImageBrush 
+            <ImageBrush ImageSource="C:\Users\raisa\source\repos\WpfApp2\WpfApp2\Images\Buble.png"
                         Stretch="None"/>
         </Border.Background>
 

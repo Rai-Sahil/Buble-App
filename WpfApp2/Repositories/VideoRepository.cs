@@ -14,9 +14,7 @@ namespace WpfApp2.Repositories
     {
         public List<VideosModel> GetAll()
         {
-            // Retrieve data from SQL database and populate MyDataList
-            string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Database1.mdf;Integrated Security=True";
-            SqlConnection connection = new SqlConnection(connectionString);
+            SqlConnection connection = GetConnection();
 
             string query = "SELECT * FROM [Videos]";
             SqlCommand command = new SqlCommand(query, connection);
@@ -44,6 +42,7 @@ namespace WpfApp2.Repositories
 
             reader.Close();
             connection.Close();
+            connection.Dispose();
 
             return videos;
         }
@@ -81,6 +80,10 @@ namespace WpfApp2.Repositories
                 {
                     video = null;
                 }
+
+               
+               connection.Close();
+               connection.Dispose();
             }
             return video;
         }

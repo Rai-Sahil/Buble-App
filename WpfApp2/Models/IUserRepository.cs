@@ -17,6 +17,6 @@ namespace WpfApp2.Models
         UserModel GetById(int id);
         UserModel GetByUsername(string username);
         List<UserRow> GetByAll();
-
+        void ChangeUserPassword(string username, string Password);
     }
 }

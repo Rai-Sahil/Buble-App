@@ -11,23 +11,23 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WpfApp2.ViewModels;
 
 namespace WpfApp2.Views
 {
-    /// <summary>
-    /// Interaction logic for RecoverPasswordView.xaml
-    /// </summary>
     public partial class RecoverPasswordView : Window
     {
+        RecoverPasswordViewModel viewModel;
+
         public RecoverPasswordView()
         {
             InitializeComponent();
+            viewModel = new RecoverPasswordViewModel();
         }
 
         private void send_btn_Click(object sender, RoutedEventArgs e)
         {
-            LoginView login = new LoginView();
-            login.Show();
+            viewModel.changePassword(username.Text);
             var window = this as Window;
             window.Close();
         }

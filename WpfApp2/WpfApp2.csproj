@@ -86,6 +86,7 @@
     <Compile Include="CustomControls\UserRow.xaml.cs">
       <DependentUpon>UserRow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\EmailTemplateModel.cs" />
     <Compile Include="Models\IUserRepository.cs" />
     <Compile Include="Models\IVideosRepository.cs" />
     <Compile Include="Models\RecoverPasswordModel.cs" />
@@ -243,6 +244,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>Database1.mdf</DependentUpon>
     </Content>
+    <Resource Include="Images\Buble.png" />
+    <Resource Include="Images\Buble logo 1.png" />
+    <Resource Include="Images\LoginBackground.png" />
     <Resource Include="Images\Screenshot 2023-03-16 165610.png" />
     <Resource Include="Images\WeChat.png" />
     <Resource Include="Images\user-icon.png" />

@@ -28,8 +28,6 @@ namespace WpfApp2.Views
         {
             RecoverPasswordView recoverPasswordWindow = new RecoverPasswordView();
             recoverPasswordWindow.Show();
-            Window window = this as Window;
-            window.Close();
             
         }
     }
