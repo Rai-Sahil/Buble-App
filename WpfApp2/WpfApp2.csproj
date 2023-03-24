@@ -245,6 +245,14 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>Database1.mdf</DependentUpon>
     </Content>
+    <Resource Include="Images\grey-name-icon.png" />
+    <Resource Include="Images\username-icon.png" />
+    <Resource Include="Images\grey-email-icon.png" />
+    <Resource Include="Images\grey-id-icon.png" />
+    <Resource Include="Images\users-group.png" />
+    <Resource Include="Images\user-computer-icon.png" />
+    <Resource Include="Images\name-icon.png" />
+    <Resource Include="Images\user-id-icon.png" />
     <Resource Include="Images\Buble.png" />
     <Resource Include="Images\Buble logo 1.png" />
     <Resource Include="Images\LoginBackground.png" />
