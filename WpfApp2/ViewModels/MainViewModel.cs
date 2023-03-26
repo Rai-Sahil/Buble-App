@@ -121,7 +121,7 @@ namespace WpfApp2.ViewModels
                 CurrentUserAccount.Email = user.Email;
                 CurrentUserAccount.ID = user.Id;
 
-                string imagePath = "C:\\Users\\sarve\\Documents\\3951\\Buble-Video-Streaming-App\\WpfApp2\\Images\\user-icon.png";
+                string imagePath = "C:\\Users\\raisa\\source\\repos\\Buble-Video-Streaming-App\\WpfApp2\\Images\\user-icon.png";
                 CurrentUserAccount.ProfilePicture = (CurrentUserAccount.ProfilePicture == null) ?
                     File.ReadAllBytes(imagePath) : user.ProfilePicture;
             }

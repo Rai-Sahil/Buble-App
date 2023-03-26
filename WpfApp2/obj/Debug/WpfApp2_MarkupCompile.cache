@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-C:\Users\sarve\Documents\3951\Buble-Video-Streaming-App\WpfApp2\obj\Debug\
+C:\Users\raisa\source\repos\Buble-Video-Streaming-App\WpfApp2\obj\Debug\
 WpfApp2
 none
 false
 DEBUG;TRACE
-C:\Users\sarve\Documents\3951\Buble-Video-Streaming-App\WpfApp2\App.xaml
+C:\Users\raisa\source\repos\Buble-Video-Streaming-App\WpfApp2\App.xaml
 14-690538819
 21200697616
 37322776795
-161945618509
+161160956155
 CustomControls\BindablePasswordBox.xaml;CustomControls\FileDetails.xaml;CustomControls\UserRow.xaml;Views\CustomerView.xaml;Views\HomeView.xaml;Views\LoginView.xaml;Views\MainView.xaml;Styles\ButtonStyles.xaml;Styles\UIColor.xaml;Views\AllVideosPage.xaml;Views\RecoverPasswordView.xaml;Views\VideoPlayer.xaml;Views\SettingsView.xaml;Views\UserProfile.xaml;
 
 False
