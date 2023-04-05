@@ -7,6 +7,11 @@ using System.Text;
 using System.Threading.Tasks;
 using WpfApp2.Models;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+using MongoDB.Bson;
+using MongoDB.Driver;
+using MongoDB.Driver.Core.Configuration;
+using System.Collections;
+using WpfApp2.Objects;
 
 namespace WpfApp2.Repositories
 {
@@ -86,6 +91,33 @@ namespace WpfApp2.Repositories
                connection.Dispose();
             }
             return video;
+        }
+
+        public void AddVideoInformationToMongoDB(string title, string channel)
+        {
+            MongoClient client = GetMongoClient();
+            // Get the database object
+            IMongoDatabase database = client.GetDatabase("Video");
+            // Get the collection object
+            IMongoCollection<BsonVideoObject> collection 
+                = database.GetCollection<BsonVideoObject>("Videos");
+
+            // Create a new document to insert into the collection
+            BsonVideoObject document = new BsonVideoObject
+            {
+                Title = title,
+                Channel = channel,
+                Likes = 0,
+                Dislikes = 0,
+                Url = "https://d1m5sbyhb726tv.cloudfront.net/" + title + ".mp4",
+                Comments = new ArrayList()
+            };
+
+            // Insert the document into the collection
+            collection.InsertOne(document);
+
+            Console.WriteLine("Document inserted successfully.");
+
         }
     }
 }

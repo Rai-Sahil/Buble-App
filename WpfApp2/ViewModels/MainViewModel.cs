@@ -62,6 +62,8 @@ namespace WpfApp2.ViewModels
         public ICommand ShowCustomerViewCommand { get;  }
         public ICommand ShowSettingsViewCommand { get;  }
         public ICommand ShowUserProfileViewCommand { get;  }
+        public ICommand ShowUploadViewCommand { get;  }
+        public ICommand ShowScreenRecorderViewCommand { get;  }
 
         public MainViewModel()
         {
@@ -73,20 +75,32 @@ namespace WpfApp2.ViewModels
             ShowCustomerViewCommand = new ViewModelCommand(ExecuteCustomerViewCommand);
             ShowSettingsViewCommand = new ViewModelCommand(ExecuteShowSettingsViewCommand);
             ShowUserProfileViewCommand = new ViewModelCommand(ExecuteUserProfileViewCommand);
-
+            ShowUploadViewCommand = new ViewModelCommand(ExecuteUploadViewCommand);
+            ShowScreenRecorderViewCommand = new ViewModelCommand(ExecuteScreenRecorderViewCommand);
             //Default View
             ExecuteShowHomeViewCommand(null);
 
             LoadCurrentUserData();
         }
 
-
-       
+        private void ExecuteScreenRecorderViewCommand(object obj)
+        {
+            CurrentChildView = new ScreenRecorderViewModel();
+            Caption = "Screen Recorder";
+            Icon = IconChar.UserGroup;
+        }
 
         private void ExecuteCustomerViewCommand(object obj)
         {
             CurrentChildView = new CustomerViewModel();
             Caption = "Customers";
+            Icon = IconChar.UserGroup;
+        }
+        
+        private void ExecuteUploadViewCommand(object obj)
+        {
+            CurrentChildView = new UploadViewModel();
+            Caption = "Upload Video";
             Icon = IconChar.UserGroup;
         }
 
@@ -99,7 +113,7 @@ namespace WpfApp2.ViewModels
 
         private void ExecuteShowSettingsViewCommand(object obj)
         {
-            CurrentChildView = new SettingsViewModel();
+            //CurrentChildView = new SettingsViewModel();
             Caption = "Settings";
             Icon = IconChar.Gears;
         }
@@ -117,13 +131,13 @@ namespace WpfApp2.ViewModels
             if (user != null)
             {
                 CurrentUserAccount.Username = user.Username;
-                CurrentUserAccount.DisplayName = $"{user.Name} {user.LastName}";
+                CurrentUserAccount.DisplayName = $"{user.Firstname} {user.LastName}";
                 CurrentUserAccount.Email = user.Email;
                 CurrentUserAccount.ID = user.Id;
 
-                string imagePath = "C:\\Users\\raisa\\source\\repos\\Buble-Video-Streaming-App\\WpfApp2\\Images\\user-icon.png";
-                CurrentUserAccount.ProfilePicture = (CurrentUserAccount.ProfilePicture == null) ?
-                    File.ReadAllBytes(imagePath) : user.ProfilePicture;
+                string imagePath = "\\Images\\user-icon.png";
+                //CurrentUserAccount.ProfilePicture = (CurrentUserAccount.ProfilePicture == null) ?
+                //    File.ReadAllBytes(imagePath) : user.ProfilePicture;
             }
             else
             {

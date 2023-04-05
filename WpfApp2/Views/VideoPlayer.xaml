@@ -9,11 +9,8 @@
       Title="Page2"
       >
 
-
     <Grid>
-        <TextBlock Text="{Binding VideoDetail.Title}">
-            
-        </TextBlock>
-        
+        <!--<WebBrowser x:Name="browser" HorizontalAlignment="Left" Height="213" Margin="72,108,0,0" VerticalAlignment="Top" Width="612"/>-->
+        <MediaElement x:Name="media"/>
     </Grid>
 </Page>

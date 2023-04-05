@@ -33,7 +33,7 @@ namespace WpfApp2.Models
             message.From = new MailAddress(frommail);
 
             message.Subject = "Test Subject";
-            message.To.Add(new MailAddress("raisahil580@gmail.com"));
+            message.To.Add(new MailAddress(email));
             message.Body = HTML_email_template;
 
             message.IsBodyHtml = true;
@@ -48,8 +48,6 @@ namespace WpfApp2.Models
 
             
             smtpClient.Send(message);
-
-
 
         }
     }

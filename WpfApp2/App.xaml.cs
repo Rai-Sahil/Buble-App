@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using WpfApp2.Views;
+using WpfApp2.Views.Windows;
 
 namespace WpfApp2
 {
@@ -14,21 +10,29 @@ namespace WpfApp2
     /// </summary>
     public partial class App : Application
     {
+        StartWindowView w = new StartWindowView();
+
         protected void ApplicationStart(object sender, EventArgs e)
         {
+            w.Show();
+            w.startUp.Click += startButton_Click;
+        }
+
+        public void startButton_Click(object sender, RoutedEventArgs e)
+        {
             var loginView = new LoginView();
-            loginView.Show();
+            
+            w.Content = loginView;
+
             loginView.IsVisibleChanged += (s, ev) =>
             {
                 if (loginView.IsVisible == false && loginView.IsLoaded)
                 {
                     var mainView = new MainView();
-                    mainView.Show();
-                    loginView.Close();
+                    w.Content = mainView;
+                    loginView = null;
                 }
             };
-
-            
         }
     }
 }

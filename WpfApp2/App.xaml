@@ -84,6 +84,13 @@
                     </EventTrigger>
                 </Style.Triggers>
             </Style>
+            <Style TargetType="Button" BasedOn="{StaticResource controlButton}" x:Key="CActionButtons">
+                <Setter Property="Background" Value="#731101" />
+                <Setter Property="Foreground" Value="White" />
+                <Setter Property="BorderBrush" Value="#610F03" />
+                <Setter Property="Width" Value="40" />
+                <Setter Property="Height" Value="40" />
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

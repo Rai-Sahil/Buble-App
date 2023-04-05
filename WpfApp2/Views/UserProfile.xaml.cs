@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfApp2.Repositories;
 using WpfApp2.ViewModels;
 
 namespace WpfApp2.Views
@@ -32,31 +33,34 @@ namespace WpfApp2.Views
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Database1.mdf;Integrated Security=True";
-            string query = "UPDATE [User] SET email = @email WHERE id = @id;";
+            //string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Database1.mdf;Integrated Security=True";
+            //string query = "UPDATE [User] SET email = @email WHERE id = @id;";
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                using (SqlCommand command = new SqlCommand(query, connection))
-                {
+            //using (SqlConnection connection = new SqlConnection(connectionString))
+            //{
+            //    using (SqlCommand command = new SqlCommand(query, connection))
+            //    {
 
-                    //command.Parameters.AddWithValue("@Name", NameTextBox.Text.ToString());
-                    //command.Parameters.AddWithValue("@Email", "r@gmail.com");
-                    //command.Parameters.AddWithValue("@Username", UsernameTextBox.Text);
-                    //command.Parameters.AddWithValue("@Id", IdTextBox.Text);
+            //        //command.Parameters.AddWithValue("@Name", NameTextBox.Text.ToString());
+            //        //command.Parameters.AddWithValue("@Email", "r@gmail.com");
+            //        //command.Parameters.AddWithValue("@Username", UsernameTextBox.Text);
+            //        //command.Parameters.AddWithValue("@Id", IdTextBox.Text);
 
-                    //command.Parameters.Add("@NAME", SqlDbType.NVarChar).Value = nameTextBox.Text;
-                    command.Parameters.Add("@email", SqlDbType.NVarChar).Value = EmailTextBox.Text;
-                    command.Parameters.Add("@id", SqlDbType.UniqueIdentifier).Value = new System.Data.SqlTypes.SqlGuid(IdTextBox.Text);
-                    //command.Parameters.Add("@MESSAGE", SqlDbType.NVarChar).Value = messageTextBox.Text;
+            //        //command.Parameters.Add("@NAME", SqlDbType.NVarChar).Value = nameTextBox.Text;
+            //        command.Parameters.Add("@email", SqlDbType.NVarChar).Value = EmailTextBox.Text;
+            //        command.Parameters.Add("@id", SqlDbType.UniqueIdentifier).Value = new System.Data.SqlTypes.SqlGuid(IdTextBox.Text);
+            //        //command.Parameters.Add("@MESSAGE", SqlDbType.NVarChar).Value = messageTextBox.Text;
 
-                    connection.Open();
-                    int rowsAffected = command.ExecuteNonQuery();
-                    connection.Close();
+            //        connection.Open();
+            //        int rowsAffected = command.ExecuteNonQuery();
+            //        connection.Close();
 
-                    Console.WriteLine("Rows affected: " + rowsAffected);
-                }
-            }
+            //        Console.WriteLine("Rows affected: " + rowsAffected);
+            //    }
+            //}
+
+            UserRepository repo = new UserRepository();
+            repo.UpdatetById(IdTextBox.Text, NameTextBox.Text, UsernameTextBox.Text, EmailTextBox.Text);
         }
     }
 }

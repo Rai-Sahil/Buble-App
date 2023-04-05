@@ -27,14 +27,12 @@ namespace WpfApp2.ViewModels
             {
                 return _videoDetail;
             }
-
             set
             {
                 _videoDetail = value;
                 OnPropertyChnaged(nameof(VideoDetail));
             }
         }
-
 
         public HomeViewModel()
         {
@@ -49,7 +47,6 @@ namespace WpfApp2.ViewModels
                 VideoDetail.Dislikes = video.dislikes;
                 VideoDetail.Channel = video.channel;
                 VideoDetail.ThumbnailURL = video.Thumbnail;
-                Console.WriteLine(VideoDetail.Title);
             }
         }
     }

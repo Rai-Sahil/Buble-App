@@ -37,7 +37,7 @@ namespace WpfApp2.Views
             
             Button clickedButton = sender as Button;
 
-            if (clickedButton != null )
+            if (clickedButton != null)
             {
                 homeView.clickedVideoID = clickedButton.Uid;
                 this.NavigationService.Navigate(new Page2(clickedButton.Uid));

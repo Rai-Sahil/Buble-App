@@ -1,12 +1,20 @@
-﻿using System;
+﻿using Amazon.Runtime.Documents;
+using FontAwesome.Sharp;
+using MongoDB.Bson;
+using MongoDB.Driver;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
+using System.Windows.Documents;
+using System.Windows.Media;
 using WpfApp2.CustomControls;
 using WpfApp2.Models;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
@@ -22,24 +30,27 @@ namespace WpfApp2.Repositories
 
         public bool AuthenticateUser(NetworkCredential credential)
         {
-            bool validUser;
+            var client = GetMongoClient();
+            var database = client.GetDatabase("User-Auth");
 
-            using (var connection = GetConnection())
-            using (var command = new SqlCommand())
+            var collection = database.GetCollection<BsonDocument>("User");
+            var filter = Builders<BsonDocument>.Filter.And(
+                Builders<BsonDocument>.Filter.Eq("Username", credential.UserName),
+                Builders<BsonDocument>.Filter.Eq("Password", credential.Password)
+            );
+
+            var results = collection.Find(filter).ToList();
+
+            if (results.Count > 0)
             {
-                connection.Open();
-                Console.WriteLine("Database name: " + connection.Database);
-                command.Connection = connection;
-                command.CommandText = "select * from [User] where username=@username and password=@password";
-                command.Parameters.Add("@username", SqlDbType.NVarChar).Value = credential.UserName;
-                command.Parameters.Add("@password", SqlDbType.NVarChar).Value = credential.Password;
-                validUser = command.ExecuteScalar() == null ? false : true;
-
-                connection.Close();
-                connection.Dispose();
-                command.Dispose();
+                // username and password found
+                return true;
             }
-            return validUser;
+            else
+            {
+                // username and/or password not found
+                return false;
+            }
         }
 
         public void Edit(UserModel userModel)
@@ -47,73 +58,80 @@ namespace WpfApp2.Repositories
             throw new NotImplementedException();
         }
 
-        public List<UserRow> GetByAll()
+        public List<UserModel> GetByAll()
         {
-            List<UserRow> users = new List<UserRow>();
-            using (var connection = GetConnection())
-            using (var command = new SqlCommand())
-            {
-                connection.Open();
-                command.Connection = connection;
-                command.CommandText = "select * from [User]";
-                using (var reader = command.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        UserRow user = new UserRow();
+            var client = GetMongoClient();
+            var database = client.GetDatabase("User-Auth");
 
-                        user.Title = reader[0].ToString();
-                        user.Description = reader[1].ToString();
+            var collection = database.GetCollection<UserModel>("User");
 
-                        users.Add(user);
-                        
-                    }
-                }
-
-                connection.Close();
-                connection.Dispose();
-                command.Dispose();
-            }
+            var filter = Builders<UserModel>.Filter.Empty;
+            var projection = Builders<UserModel>.Projection
+                .Include(u => u.Firstname)
+                .Include(u => u.Username)
+                .Include(u => u.ProfilePicture)
+                .Include(u => u.Id);
+            var users = collection.Find(filter)
+                .Project<UserModel>(projection).ToList();
 
             return users;
         }
 
-        public UserModel GetById(int id)
+        public void UpdatetById(string id, string name, string username, string email)
         {
-            throw new NotImplementedException();
+            var client = GetMongoClient();
+            var database = client.GetDatabase("User-Auth");
+
+            var collection = database.GetCollection<BsonDocument>("User");
+
+            try
+            {
+                var filter = Builders<BsonDocument>.Filter.Eq("_id", new ObjectId(id));
+                // Set up the update fields
+                var update = Builders<BsonDocument>.Update
+                    .Set("Firstname", name)
+                    .Set("Username", username)
+                    .Set("email", email);
+                // Update the document
+                var result = collection.UpdateOneAsync(filter, update);
+
+            }
+            catch (IndexOutOfRangeException)
+            {
+                Console.WriteLine("\nIndex is Out Of Bound For ID\n");
+            }
+
         }
 
         public UserModel GetByUsername(string username)
         {
             UserModel user = null;
-            using (var connection = GetConnection())
-            using (var command = new SqlCommand())
-            {
-                connection.Open();
-                command.Connection = connection;
-                command.CommandText = "select * from [User] where username=@username";
-                command.Parameters.Add("@username", SqlDbType.NVarChar).Value = username;
-                using (var reader = command.ExecuteReader())
-                {
-                    if (reader.Read())
-                    {
-                        user = new UserModel()
-                        {
-                            Id = reader[0].ToString(),
-                            Username = reader[1].ToString(),
-                            Password = string.Empty,
-                            Name = reader[3].ToString(),
-                            LastName = reader[4].ToString(),
-                            Email = reader[5].ToString(),
-                        };
-                    }
-                }
 
-                connection.Close();
-                connection.Dispose();
-                command.Dispose ();
+            var client = GetMongoClient();
+            var database = client.GetDatabase("User-Auth");
+
+            var collection = database.GetCollection<BsonDocument>("User");
+
+            var filter = Builders<BsonDocument>.Filter.Eq("Username", username);
+            var reader = collection.Find(filter).FirstOrDefault();
+
+            if (reader != null)
+            {
+                user = new UserModel()
+                {
+                    Id = reader["_id"].ToString(),
+                    Username = reader["Username"].ToString(),
+                    Password = string.Empty,
+                    Firstname = reader["Firstname"].ToString(),
+                    LastName = reader["Lastname"].ToString(),
+                    Email = reader["Email"].ToString(),
+
+                };
+
+                // use the variable values as needed
             }
             return user;
+            
         }
 
         public void Remove(int id)
@@ -121,50 +139,72 @@ namespace WpfApp2.Repositories
             throw new NotImplementedException();
         }
 
-        public void ChangeUserPassword(string username, string Password)
+        public void ChangeUserPassword(string username, string password)
         {
-            string updateQuery = "UPDATE [User] SET Password = @Password WHERE Username = @Username";
+            var client = GetMongoClient();
+            var database = client.GetDatabase("User-Auth");
 
-            using (SqlConnection connection = GetConnection())
+            var collection = database.GetCollection<BsonDocument>("User");
+
+            var filter = Builders<BsonDocument>.Filter.Eq("Username", username);
+            var update = Builders<BsonDocument>.Update.Set("Password", password);
+
+            var result = collection.UpdateOne(filter, update);
+
+            if (result.ModifiedCount > 0)
             {
-                connection.Open();
-
-                SqlTransaction transaction = connection.BeginTransaction();
-
-                try
-                {
-                    using (SqlCommand command = new SqlCommand(updateQuery, connection, transaction))
-                    {
-                        command.Parameters.AddWithValue("@Password", SqlDbType.NVarChar).Value = Password;
-                        command.Parameters.AddWithValue("@Username", SqlDbType.NVarChar).Value = username;
-
-                        int rowsAffected = command.ExecuteNonQuery();
-
-                        if (rowsAffected == 0)
-                        {
-                            transaction.Rollback();
-                            Console.WriteLine("User not found");
-                        }
-                        else
-                        {
-                            // Commit transaction if rows were affected
-                            transaction.Commit();
-                            Console.WriteLine("Password updated successfully.");
-                        }
-                        command.Dispose();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    // Roll back transaction on exception
-                    transaction.Rollback();
-                    Console.WriteLine("Error updating password: " + ex.Message);
-                }
-
-                connection.Close();
-                connection.Dispose();
-
+                Console.WriteLine("Changed");
             }
+            else
+            {
+                Console.WriteLine("not");
+            }
+        }
+
+        public void addFollowing(string username, string Uid)
+        {
+            var client = GetMongoClient();
+            var database = client.GetDatabase("User-Auth");
+
+            var collection = database.GetCollection<BsonDocument>("User");
+
+            FilterDefinition<BsonDocument> filter = Builders<BsonDocument>.Filter.Eq("Username", username);
+            BsonDocument userDocument = collection.Find(filter).FirstOrDefault();
+
+            BsonArray myArray = userDocument.GetValue("Followings").AsBsonArray;
+
+            bool exists = myArray.Any(x => x.AsString == Uid);
+            
+            if (!exists)
+            {
+                myArray.Add(Uid);
+            }
+
+            UpdateDefinition<BsonDocument> update = Builders<BsonDocument>.Update.Set("Followings", myArray);
+            collection.UpdateOne(filter, update);
+
+        }
+
+        public void addFollower(string username, string Uid)
+        {
+            var client = GetMongoClient();
+            var database = client.GetDatabase("User-Auth");
+
+            var collection = database.GetCollection<BsonDocument>("User");
+
+            FilterDefinition<BsonDocument> filter = Builders<BsonDocument>.Filter.Eq("Username", username);
+            BsonDocument userDocument = collection.Find(filter).FirstOrDefault();
+
+            BsonArray myArray = userDocument.GetValue("Followers").AsBsonArray;
+            bool exists = myArray.Any(x => x.AsString == Uid);
+            
+            if (!exists)
+            {
+                myArray.Add(Uid);
+            }
+
+            UpdateDefinition<BsonDocument> update = Builders<BsonDocument>.Update.Set("Followers", myArray);
+            collection.UpdateOne(filter, update);
 
         }
     }

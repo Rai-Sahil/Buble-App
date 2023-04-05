@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MongoDB.Driver;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -9,15 +10,25 @@ namespace WpfApp2.Repositories
 {
     public abstract class RepositoryBase
     {
-        private readonly string _connectionString;
+        private readonly string _SqlConnectionString;
+        private readonly string _mongoConnectionString;
+        private MongoClientSettings _settings;
+
         public RepositoryBase()
         {
-            _connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Database1.mdf;Integrated Security=True";
-            //_connectionString = "Server=(local); Database=MSSQLLocalDB; Integrated Security=true";
+            _SqlConnectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Database1.mdf;Integrated Security=True";
+            _mongoConnectionString = "mongodb+srv://rai-sahil:Tkdcrc987@cluster0.dibrkuh.mongodb.net/?retryWrites=true&w=majority";
+
+            _settings = MongoClientSettings.FromConnectionString(_mongoConnectionString);
         }
         protected SqlConnection GetConnection()
         {
-            return new SqlConnection(_connectionString);
+            return new SqlConnection(_SqlConnectionString);
+        }
+
+        public MongoClient GetMongoClient()
+        {
+            return new MongoClient(_settings);
         }
     }
 }

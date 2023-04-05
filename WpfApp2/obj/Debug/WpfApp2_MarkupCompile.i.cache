@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\raisa\source\repos\Buble-Video-Streaming-App\WpfApp2\App.xaml
-14-690538819
-21200697616
-38-2050412380
-161160956155
-CustomControls\BindablePasswordBox.xaml;CustomControls\FileDetails.xaml;CustomControls\UserRow.xaml;Views\CustomerView.xaml;Views\HomeView.xaml;Views\LoginView.xaml;Views\MainView.xaml;Styles\ButtonStyles.xaml;Styles\UIColor.xaml;Views\AllVideosPage.xaml;Views\RecoverPasswordView.xaml;Views\VideoPlayer.xaml;Views\SettingsView.xaml;Views\UserProfile.xaml;
+18-1529409154
+5-757966680
+46-1528006051
+1511091702282
+CustomControls\BindablePasswordBox.xaml;CustomControls\FileDetails.xaml;CustomControls\UserRow.xaml;Views\CustomerView.xaml;Views\HomeView.xaml;Views\LoginView.xaml;Views\MainView.xaml;Styles\ButtonStyles.xaml;Styles\UIColor.xaml;Views\AllVideosPage.xaml;Views\Pages\AllUsersView.xaml;Views\RecoverPasswordView.xaml;Views\ScreenRecorderView.xaml;Views\UploadView.xaml;Views\VideoPlayer.xaml;Views\UserProfile.xaml;Views\WatchLaterView.xaml;Views\Windows\StartWindowView.xaml;
 
 True
 

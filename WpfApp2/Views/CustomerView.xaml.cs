@@ -16,6 +16,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WpfApp2.CustomControls;
 using WpfApp2.Repositories;
+using WpfApp2.ViewModels;
+using WpfApp2.Views.Pages;
 
 namespace WpfApp2.Views
 {
@@ -28,14 +30,9 @@ namespace WpfApp2.Views
         {
             InitializeComponent();
 
-            UserRepository repo = new UserRepository();
+            DataContext = new CustomerViewModel();
 
-            List<UserRow> rows = repo.GetByAll();
-
-            for (int i = 0; i < rows.Count; i++)
-            {
-                
-            }
+            UserDisplayFrame.NavigationService.Navigate(new AllUsersView());
         }
     }
 }
